@@ -1,6 +1,7 @@
 import abc
 from prometheus_client import Gauge
-
+from threading import Thread
+import time
 
 class PromVar:
     def __init__(self, name, description=""):
@@ -17,9 +18,15 @@ class PromVar:
 
 
 class Device(abc.ABC):
-    def __init__(self):
+    def __init__(self, name):
+        self.name = name
+        #self.namespace_prefix = ""
+        self.poll_loop_ms = 2000
         self.variables = dict()
+        self._keep_running = True
         self.init()
+        self._loop_thread = Thread(target=self._loop_handler, daemon=True)
+        self._loop_thread.start()
 
     def addVariable(self, name, description=""):
         self.variables[name] = PromVar(name, description)
@@ -30,12 +37,32 @@ class Device(abc.ABC):
         else:
             return None
 
+    def getAllVariablesValues(self):
+        var_dict = dict()
+        for key, value in self.variables.items():
+            var_dict[key] = value.getValue()
+        return var_dict
+
     def setVariableValue(self, name, value):
         if self.variables.get(name) is not None:
             self.variables[name].setValue(value)
 
     def hasVar(self, name):
-        return self.variables.get(name) is not None
+        return self.variables.get(name) != None
+
+
+    def _loop_handler(self):
+        print("Starting Loop cycle for device", self.name)
+        while self._keep_running:
+            self.loop()
+            time.sleep(self.poll_loop_ms / 1000)
+
+    def is_alive(self):
+        return self._loop_thread.is_alive()
+
+    def stop(self):
+        self._keep_running = False
+        self.cleanup()
 
     @abc.abstractmethod
     def init(self):

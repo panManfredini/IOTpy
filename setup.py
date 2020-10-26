@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="iotpy", # Replace with your own username
-    version="0.0.1",
+    version="0.0.6",
     author="Alessandro Manfredini",
     author_email="a.manfredini.work@gmail.com",
     description="Simple webserver to expose IOT devices tough HTTP and prometheus",
