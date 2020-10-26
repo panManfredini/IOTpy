@@ -1,16 +1,17 @@
 import abc
-from prometheus_client import Gauge 
+from prometheus_client import Gauge
 
-class promVar():
-    def __init__(self,name,description=""):
+
+class PromVar:
+    def __init__(self, name, description=""):
         self.name = name
         self.value = None
-        self.prom = Gauge(name,description)
-    
-    def setValue(self,value):
+        self.prom = Gauge(name, description)
+
+    def setValue(self, value):
         self.value = value
         self.prom.set(value)
-    
+
     def getValue(self):
         return self.value
 
@@ -19,29 +20,31 @@ class Device(abc.ABC):
     def __init__(self):
         self.variables = dict()
         self.init()
-    
-    def addVariable(self,name,description=""):
-        self.variables[name] = promVar(name,description)
-    
+
+    def addVariable(self, name, description=""):
+        self.variables[name] = PromVar(name, description)
+
     def getVariableValue(self, name):
-        if self.variables.get(name) != None:
+        if self.variables.get(name) is not None:
             return self.variables[name].getValue()
-        else: 
+        else:
             return None
-    
+
     def setVariableValue(self, name, value):
-        if self.variables.get(name) != None:
+        if self.variables.get(name) is not None:
             self.variables[name].setValue(value)
-    
-    def hasVar(self,name):
-        return self.variables.get(name) != None
-    
+
+    def hasVar(self, name):
+        return self.variables.get(name) is not None
+
     @abc.abstractmethod
     def init(self):
         pass
+
     @abc.abstractmethod
     def loop(self):
         pass
+
     @abc.abstractmethod
     def write(self, name, value):
         """
@@ -53,6 +56,7 @@ class Device(abc.ABC):
             variable value that has to be written
         """
         pass
+
     @abc.abstractmethod
     def cleanup(self):
         pass
@@ -60,13 +64,15 @@ class Device(abc.ABC):
 
 listOfDevices = []
 
+
 def addDevice(device):
     listOfDevices.append(device)
+
 
 def getDeviceWithVar(name):
     device = None
     for dev in listOfDevices:
-        if dev.hasVar(name) :
+        if dev.hasVar(name):
             device = dev
             break
     return device
