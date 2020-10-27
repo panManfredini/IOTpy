@@ -1,12 +1,21 @@
+#from twisted.application.internet import TCPServer
+#from twisted.application.service import Application
+#from twisted.web.resource import Resource
+#from twisted.web.server import Site
+import os
 from twisted.web import server
 from twisted.internet import reactor
+from twisted.application.internet import TCPServer
 from twisted.web.resource import Resource
+from twisted.web.static import File
+
 from prometheus_client.twisted import MetricsResource
 from threading import Thread
 import time
 import json
 from . import loadDevices
 from .Device import listOfDevices
+
 
 class Index(Resource):
     isLeaf = True
@@ -97,13 +106,20 @@ class ShutDown(Resource):
 
 
 root = Resource()
-root.putChild(b"", Index())
+#root.putChild(b"", Index())
 variablesRoute = NodeValues()
 variablesRoute.putChild(b"", NodeValues())
 root.putChild(b"variables", variablesRoute)
 root.putChild(b"restart", ShutDown())
 root.putChild(b'metrics', MetricsResource())
 root.putChild(b'write', WriteValue())
+file_path = os.path.abspath(os.path.dirname(__file__)) + "/html/index.html"
+print(file_path)
+root.putChild(b"",File(file_path))
+
+#application = Application("My Web Service")
+#TCPServer(8880, Site(root)).setServiceParent(application)
+
 
 def shutdown():
     time.sleep(0.3)
