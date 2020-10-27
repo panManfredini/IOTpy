@@ -102,7 +102,13 @@ class ShutDown(Resource):
             device.stop()
         t = Thread(target=shutdown)
         t.start()
-        return b'<h1>Shutting down... </h1> <p>Restart will only happen if you configure it as deamon.</p>'
+        return b"""
+        <h1>Shutting down... </h1> <p>Restart will only happen if you configure it as deamon.</p>
+        <script>
+            setTimeout(()=>{ window.location.pathname = '/'; }, 3000);
+        </script>
+        """
+
 
 
 root = Resource()
