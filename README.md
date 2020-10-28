@@ -101,3 +101,13 @@ The server has a few defined URL routes:
 - `/metrics` return the Prometheus metrics of your variable, you need to point Prometheus to this URL.
 - `/restart` this shutdow gracefully the server, **Note:** only if you defined the iotpy to run as a daemon then it will be restarted automatically.
 
+
+# Powered by
+
+Many thanks to:
+
+- Twisted
+- Milligram.css 
+- Prometheus 
+
+And to the `University of Zurich` for support to this project.
