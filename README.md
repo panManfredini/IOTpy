@@ -94,7 +94,7 @@ iotpy --dir <path-to-your-dir>
 ```
 An now you can visit [http://localhost:8085](http://localhost:8085) and check from the `dev panel` if your device is working correctly.
 
-# The API
+# The HTTP API URLs
 
 The server has three routes:
 - `/` where a simple control panel is
