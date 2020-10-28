@@ -1,2 +1,4 @@
 include README.md
 include iotpy/html/index.html
+include iotpy/html/main.js
+include iotpy/html/main.css

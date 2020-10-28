@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,71 +11,47 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
     <!-- Milligram CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
-
-    <style>
-        .container{
-            margin: 0 auto;
-            display:flex;
-            width: 100%;
-            height: 100vh;
-            justify-content: space-between;
-            align-items: center;
-            flex-direction: column;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            box-sizing: border-box;
-        }
-        .items{
-            display:flex;
-            flex-direction: column;
-            max-width: 30rem;
-            width: 100%;
-        }
-        .box{
-            width:100%;
-            padding: 2rem;
-            border:1px solid #9b4dca;
-            border-radius: 0.4rem;
-            margin-bottom: 10px;
-        }
-        button.button-outline:active{
-            border-width: 2px;
-        }
-        
-    </style>
+    <link rel="stylesheet" href="/main.css">
 </head>
+
 <body>
     <div class="container">
         <div></div>
-        <div>
-        <h1 ><strong>IOT</strong>py</h1>
-        <div class="items"> 
-            <a class="button" href="/variables"> Explore Variables </a>
-            <a class="button" href="/metrics"> Explore Prometheus Metrics </a>
-            <button> Test Write Variable </button>
-            <div class="box">
-                        <label >Variable Name / Value </label>
-                        <div style="display:flex; justify-content: space-between;">
-                            <input style="width: 12rem" type="text" placeholder="name" id="name">
-                            <input style="width: 8rem" type="number"  id="value" placeholder="val">
-                        </div>
-                        <p style="display:flex; justify-content: space-between; line-height: 0.6;">
-                            <strong>Current Value:</strong> <span id="currentvalue"> ... </span>
-                        </p>
-                        <p style="display:flex; justify-content: space-between; line-height: 0.6;">
-                            <strong>Status:</strong> <span id="error"> </span>
-                        </p>
+        <div class="horizontal-center">
+            <h1 ><strong>IOT</strong>py  </h1>
+            <h2 style="margin-bottom: 30px;">Developer's Panel</h2>
+            <div class="items">
+                <a class="button button-t" href="/variables"> Explore Variables </a>
+                <a class="button button-t" href="/metrics"> Explore Prometheus Metrics </a>
+                <button class="button-t" id="obutton"> Test Write Variable </button>
+                
+                <div class="box hide" style="display:none" id="wbox">
+                    <label>Variable Name / Value </label>
+                    <div class="space-between">
+                        <input style="width: 14rem" type="text" placeholder="name" id="name">
+                        <input style="width: 10rem" type="number" id="value" placeholder="val">
+                    </div>
+                    <p class="space-between" style="line-height: 0.6;">
+                        <strong>Current Value:</strong> <span id="currentvalue"> ... </span>
+                    </p>
+                    <p class="space-between" style="line-height: 0.6;">
+                        <strong>Write Status:</strong> <span id="writestatus"> </span>
+                    </p>
 
-                        <div style="display:flex; justify-content: space-between;">
-                            <button class="button-outline"> Write</button>
-                            <button class="button-outline">Close</button>
-                        </div>
+                    <div class="space-between">
+                        <button class="button-outline button-t" id="wbutton"> Write</button>
+                        <button class="button-outline button-t" id="cbutton">Close</button>
+                    </div>
+                </div>
+
+                <a class="button  button-t" href="/restart"> System Restart </a>
+                <!--<button> System Health Check </button>-->
             </div>
-            <a class="button" href="/restart"> System Restart </a>
-            <!--<button> System Health Check </button>-->
-        </div>
         </div>
         <p><strong>Powered by:</strong> Twisted - Milligram.css - Prometheus</p>
     </div>
+
+    <script src="/main.js"></script>
 </body>
+
 </html>
