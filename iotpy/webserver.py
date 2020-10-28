@@ -9,6 +9,7 @@ from prometheus_client.twisted import MetricsResource
 from .loadDevices import loadDevices
 from .routes import NodeValues, ShutDown, WriteValue
 from .splashscreen import printSplashScreen
+from .readArgs import getDirAndPort
 
 printSplashScreen()
 loadDevices()
@@ -28,7 +29,8 @@ root.putChild(b"main.js",  File( dir_path + "/html/main.js" ) )
 root.putChild(b"main.css", File( dir_path + "/html/main.css" ))
 
 def run():
+    modules_dir, PORT = getDirAndPort()
     site = server.Site(root)
-    reactor.listenTCP(8085, site)
-    print("Listening on 8085")
+    reactor.listenTCP(PORT, site)
+    print("Listening on port: ", PORT)
     reactor.run()
