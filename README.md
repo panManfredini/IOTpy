@@ -96,7 +96,7 @@ An now you can visit [http://localhost:8085](http://localhost:8085) and check fr
 
 # The HTTP API URLs
 
-The server has three routes:
+The server has a few defined URL routes:
 - `/` where a simple control panel is
 - `/variables` returns a JSON object with all defined variables and their current values, in the format. `{"varName":varValue}`
 - `/metrics` return the Prometheus metrics of your variable, you need to point Prometheus to this URL.
