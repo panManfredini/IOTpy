@@ -32,8 +32,8 @@ Now visit [http://localhost:8085](http://localhost:8085).
 
 
 # How does it work
-IOTpy is a webserver that loads dynamically the code you place in a predefined directory, it extracts all the 
-variables devined in those `devices` files and exposes them trough an HTTP API and Prometheus metrics.
+IOTpy is a webserver that loads dynamically the `devices` you place in a predefined directory, it extracts all the 
+variables defined in those `devices` files and exposes them trough an HTTP API and Prometheus metrics.
 
 **What is a Device?** For `device` is intended a class that inherits from the abstrac class `iotpy.Device.Device`. After you inherit the class, you must implement
 four methods: 
@@ -42,7 +42,7 @@ four methods:
 - In the `write` method you execute an HTTP write request (somebody, trough the API has asked to write a value to the device), the method is called only if the device has defined that variable (so no need to double check), here you ask your device to set that variable then return `True` if success and `False` otherwise, if you cant write on the device just return always `False`.
 - Finally the `cleanup` method is used to gracefully shutdown the system, here for example, you close the serial connection with your device.
 
-**How define/set/read a device variable?** The `device` class already has methods implemented for that and these are `addVariable`, `setVariableValue`, `readVariableValue`.
+**How does the IOTpy know about variables and when they change?**  The `device` class has methods implemented to interact with IOTpy server's variables, these are `addVariable`, `setVariableValue` and `readVariableValue`. 
 
 **Minimal example:** you find a little more complete example [here](https://github.com/panManfredini/IOTpy/blob/main/example/exampleDevice.py).
 
