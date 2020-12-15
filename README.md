@@ -22,6 +22,10 @@ export IOTPY_DEVICES_PORT=<port-number>
 With `dir` is intended the directory where your `device` files are stored (see below for more info).
 
 # Run the Example
+
+In the [Example](https://github.com/panManfredini/IOTpy/tree/main/example) folder, there is a simple device you can start with. This creates a `device` that exposes two variables `test0` and `test1`, 
+which are populated with randomly generated variable values.
+
 ```bash
 # After installation and in the cloned folder
 cd example
@@ -39,7 +43,7 @@ variables defined in those `devices` files and exposes them trough an HTTP API a
 four methods: 
 - `init` where you initialize your device (for example open a serial connection) and define the variables, 
 - `loop` is a function that is automatically called every `n` seconds (where `n` is configurable, default is 2) where you can poll your device and update the variables value. 
-- In the `write` method you execute an HTTP write request (somebody, trough the API has asked to write a value to the device), the method is called only if the device has defined that variable (so no need to double check), here you ask your device to set that variable then return `True` if success and `False` otherwise, if you cant write on the device just return always `False`.
+- In the `write` method you execute an HTTP write request (somebody, trough the API has asked to write a value to the device), the method is called only if the device has defined that variable (so no need to double check), here you ask your device to set that variable then return `True` if success and `False` otherwise, if your device is read-only the just return always `False`.
 - Finally the `cleanup` method is used to gracefully shutdown the system, here for example, you close the serial connection with your device.
 
 **How does the IOTpy know about variables and when they change?**  The `device` class has methods implemented to interact with IOTpy server's variables, these are `addVariable`, `setVariableValue` and `readVariableValue`. 
@@ -96,9 +100,10 @@ An now you can visit [http://localhost:8085](http://localhost:8085) and check fr
 # The HTTP API URLs
 
 The server has a few defined URL routes:
-- `/` where a simple control panel is
-- `/variables` returns a JSON object with all defined variables and their current values, in the format. `{"varName":varValue}`
+- `/` returns a simple control panel.
+- `/variables` an HTTP:GET here returns a JSON object with all defined variables and their current values, in the format. `{"varName":varValue}`
 - `/metrics` return the Prometheus metrics of your variable, you need to point Prometheus to this URL.
+- `/write` this route is used to request a variable value change, and HTTP:POST is required with payload in the format `{"name":"varName","value":varValue}`.
 - `/restart` this shutdow gracefully the server, **Note:** only if you defined the iotpy to run as a daemon then it will be restarted automatically.
 
 
