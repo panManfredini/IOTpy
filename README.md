@@ -100,11 +100,14 @@ An now you can visit [http://localhost:8085](http://localhost:8085) and check fr
 # The HTTP API URLs
 
 The server has a few defined URL routes:
-- `/` returns a simple control panel.
-- `/variables` an HTTP:GET here returns a JSON object with all defined variables and their current values, in the format. `{"varName":varValue}`
-- `/metrics` return the Prometheus metrics of your variable, you need to point Prometheus to this URL.
-- `/write` this route is used to request a variable value change, and HTTP:POST is required with payload in the format `{"name":"varName","value":varValue}`.
-- `/restart` this shutdow gracefully the server, **Note:** only if you defined the iotpy to run as a daemon then it will be restarted automatically.
+
+| Route | HTTP Method | Notes |  
+|--------|-------------|------------|
+|`/`| GET | returns a simple control panel. |  
+|`/variables`| GET | returns a JSON object with all defined variables and their current values, in the format. `{"varName":varValue}` |  
+|`/metrics` | GET | return the Prometheus metrics of your variable, you need to point Prometheus to this URL. |  
+|`/write` | POST | this route is used to request a variable value change, JSON payload is required in the format `{"name":"varName","value":varValue}`. |  
+|`/restart`| GET | this shutdow gracefully the server, **Note:** only if you defined the iotpy to run as a daemon then it will be restarted automatically.|
 
 
 # Powered by
