@@ -1,0 +1,9 @@
+[Unit]
+Description=IOTpy service
+
+[Service]
+ExecStart=<path-to-iotpy>/iotpy --dir <path-to-devices> --port 9091
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
