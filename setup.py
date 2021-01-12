@@ -14,6 +14,7 @@ setuptools.setup(
     url="https://github.com/panManfredini/IOTpy",
     packages=setuptools.find_packages(),
     scripts=['bin/iotpy'],
+    install_requires=['twisted','prometheus_client'],
     include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
