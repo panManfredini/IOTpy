@@ -110,6 +110,37 @@ The server has a few defined URL routes:
 |`/restart`| GET | this shutdow gracefully the server, **Note:** only if you defined the iotpy to run as a daemon then it will be restarted automatically.|
 
 
+# Run IOTpy as a service (on linux)
+
+These instruction only work on OS which uses `systemd` (so ubuntu for example). 
+First you need to edit [](this file) changing the command to run `iotpy` according to your system.
+
+```bash
+# find where is your iotpy is installed 
+which iotpy
+# change permission
+chmod u+x <path-to-iotpy>
+
+# Edit this line of iotpy.service file
+    ExecStart=<path-to-iotpy>/iotpy --dir <path-to-devices> --port 9091
+
+# Save file into systemd directory
+sudo cp iotpy.service /etc/systemd/system/.
+
+# Start service 
+sudo systemctl start iotpy
+# Get info
+sudo systemctl status iotpy
+# Stop 
+sudo systemctl stop iotpy
+# Restart
+sudo systemctl restart iotpy
+
+# Enable service at startup
+sudo systemctl enable iotpy
+
+```
+
 # Powered by
 
 Many thanks to:
