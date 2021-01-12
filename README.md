@@ -113,7 +113,7 @@ The server has a few defined URL routes:
 # Run IOTpy as a service (on linux)
 
 These instruction only work on OS which uses `systemd` (so ubuntu for example). 
-First you need to edit [https://github.com/panManfredini/IOTpy/blob/main/iotpy.service](this file) changing the command to run `iotpy` according to your system.
+First you need to edit [this file](https://github.com/panManfredini/IOTpy/blob/main/iotpy.service) changing the command to run `iotpy` according to your system.
 
 ```bash
 # find where is your iotpy is installed 
