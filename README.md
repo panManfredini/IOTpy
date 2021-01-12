@@ -129,17 +129,10 @@ sudo cp iotpy.service /etc/systemd/system/.
 
 # Start service 
 sudo systemctl start iotpy
-# Get info
-sudo systemctl status iotpy
-# Stop 
-sudo systemctl stop iotpy
-# Restart
-sudo systemctl restart iotpy
-
-# Enable service at startup
-sudo systemctl enable iotpy
-
 ```
+
+Now you can use commands like `systemctl stop`, to stop the service, and `systemctl enable` to enable the service to self-start at startup.
+
 
 # Powered by
 
