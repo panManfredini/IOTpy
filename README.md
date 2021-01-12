@@ -122,7 +122,7 @@ which iotpy
 chmod u+x <path-to-iotpy>
 
 # Edit this line of iotpy.service file
-    ExecStart=<path-to-iotpy>/iotpy --dir <path-to-devices> --port 9091
+    ExecStart=<path-to-iotpy>/iotpy --dir <path-to-devices> --port 8085
 
 # Save file into systemd directory
 sudo cp iotpy.service /etc/systemd/system/.

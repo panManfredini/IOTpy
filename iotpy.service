@@ -2,7 +2,7 @@
 Description=IOTpy service
 
 [Service]
-ExecStart=<path-to-iotpy>/iotpy --dir <path-to-devices> --port 9091
+ExecStart=<path-to-iotpy>/iotpy --dir <path-to-devices> --port 8085 
 Restart=always
 
 [Install]
