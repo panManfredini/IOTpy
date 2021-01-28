@@ -4,6 +4,7 @@ from twisted.internet import reactor
 from threading import Thread
 import time
 import json
+from .shutdown import GracefullShutdown
 
 
 class NodeValues(Resource):
@@ -91,10 +92,7 @@ class ShutDown(Resource):
     isLeaf = False
 
     def render_GET(self, request):
-        for device in listOfDevices:
-            device.stop()
-        t = Thread(target=shutdown)
-        t.start()
+        GracefullShutdown(None,None)
         return b"""
         <h1>Shutting down... </h1> <p>Restart will only happen if you configure it as deamon.</p>
         <script>
@@ -103,6 +101,3 @@ class ShutDown(Resource):
         """
 
 
-def shutdown():
-    time.sleep(0.3)
-    reactor.stop()

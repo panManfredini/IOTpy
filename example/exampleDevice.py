@@ -32,7 +32,7 @@ class testDevice(Device):
 
     def cleanup(self):
         # do some cleanup, for example close connection with device
-        pass
+        print("stopping device gracefully...")
 
 
 

@@ -2,6 +2,7 @@ import abc
 from prometheus_client import Gauge
 from threading import Thread
 import time
+import signal
 
 class PromVar:
     def __init__(self, name, description=""):
