@@ -1,12 +1,17 @@
 #!/usr/bin/env python
-
 # -*- coding: utf-8 -*-
-import re
+from iotpy.scripts.twisted_starter import run
 import sys
-
-#from twisted.scripts.twistd import run
-from iotpy.webserver import run
+import re
+from iotpy.webserver import build_application
 
 if __name__ == '__main__':
-    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
-    sys.exit(run())
+    arg0 = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
+    application = build_application()
+    # override arguments for twised (yeha... is a bit ugly, need to fix this)
+    sys.argv.clear()
+    sys.argv.append(arg0)
+    sys.argv.append('-n')
+    sys.argv.append('-y')
+    sys.argv.append('iotpy')
+    sys.exit( run(application) )

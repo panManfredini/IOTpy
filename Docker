@@ -1,0 +1,7 @@
+FROM python:3
+COPY . /IOTpy/
+WORKDIR /IOTpy
+RUN mkdir -p Devices
+RUN pip install .
+EXPOSE 8085/tcp
+ENTRYPOINT ["iotpy"]
