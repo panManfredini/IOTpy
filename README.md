@@ -104,10 +104,28 @@ The server has a few defined URL routes:
 | Route | HTTP Method | Notes |  
 |--------|-------------|------------|
 |`/`| GET | returns a simple control panel. |  
-|`/variables`| GET | returns a JSON object with all defined variables and their current values, in the format. `{"varName":varValue}` |  
+|`/variables`| GET | returns a JSON object with all defined variables and their current values, in the format reported below. |  
 |`/metrics` | GET | return the Prometheus metrics of your variable, you need to point Prometheus to this URL. |  
 |`/write` | POST | this route is used to request a variable value change, JSON payload is required in the format `{"name":"varName","value":varValue}`. |  
 |`/restart`| GET | this shutdow gracefully the server, **Note:** only if you defined the iotpy to run as a daemon then it will be restarted automatically.|
+
+**Variable readout format:**
+```js
+// list of object 
+[
+    {
+        "name": "name_str", 
+        "value": Number, 
+        "description": "description_str", 
+        "lastUpdate_ms": 1612551768854, // time from linux epoch
+        "status": 1,  // 0 - not yet read; 1 - Good;  > 1 - Error
+        "error": "error_message or empty", 
+    },
+    {
+        ...
+    }
+]
+```
 
 
 # Run IOTpy as a service (on linux)
@@ -125,7 +143,7 @@ chmod u+x <path-to-iotpy>
     ExecStart=<path-to-iotpy>/iotpy --dir <path-to-devices> --port 8085
 
 # Save file into systemd directory
-sudo cp iotpy.service /etc/systemd/system/.
+sudo cp daemonize/iotpy.service  /etc/systemd/system/.
 
 # Start service 
 sudo systemctl start iotpy

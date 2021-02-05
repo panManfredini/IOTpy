@@ -1,5 +1,5 @@
 FROM python:3
-RUN pip install -U pyvisa httplib2
+RUN pip install  pyvisa pyvisa-py  httplib2
 COPY . /IOTpy/
 WORKDIR /IOTpy
 RUN mkdir -p Devices
