@@ -45,9 +45,7 @@ class Device(abc.ABC):
         self.poll_loop_ms = 2000
         self.variables = dict()
         self._keep_running = True
-        self.init()
         self._loop_thread = Thread(target=self._loop_handler, daemon=True)
-        self._loop_thread.start()
 
     def addVariable(self, name, description=""):
         self.variables[name] = PromVar(name, description)
@@ -68,6 +66,10 @@ class Device(abc.ABC):
         if self.variables.get(name) is not None:
             self.variables[name].setValue(value)
 
+    def setVariableStatus(self, name, status, error=""):
+        if self.variables.get(name) is not None:
+            self.variables[name].setStatus(status, error)
+
     def hasVar(self, name):
         return self.variables.get(name) != None
 
@@ -85,10 +87,7 @@ class Device(abc.ABC):
         self._keep_running = False
         self.cleanup()
 
-    @abc.abstractmethod
-    def init(self):
-        pass
-
+    
     @abc.abstractmethod
     def loop(self):
         pass
@@ -116,7 +115,14 @@ listOfDevices = []
 def addDevice(device):
     listOfDevices.append(device)
 
-
+def StartDevicesLoop():
+    for dev in listOfDevices:
+        try:
+            dev._loop_thread.start()
+            print("Started loop for device - ",dev.name)
+        except:
+            print("Failed to start loop for device - ",dev.name)
+        
 def getDeviceWithVar(name):
     device = None
     for dev in listOfDevices:

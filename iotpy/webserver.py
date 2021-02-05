@@ -10,6 +10,7 @@ from .routes import NodeValues, ShutDown, WriteValue
 from .splashscreen import printSplashScreen
 from .readArgs import getDirAndPort
 from .shutdown import SetShutdownHandler
+from .Device import StartDevicesLoop
 
 def build_application():
     printSplashScreen()
@@ -32,7 +33,7 @@ def build_application():
     server = internet.TCPServer(PORT, site)
     application = service.Application('IoTpy')
     server.setServiceParent(application)
-    
     SetShutdownHandler()
+    StartDevicesLoop()
 
     return application
