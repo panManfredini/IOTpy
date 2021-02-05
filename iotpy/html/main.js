@@ -58,7 +58,11 @@
     }
 
     function filter(name, obj){
-        if(obj.hasOwnProperty(name)) return obj[name].toString();
+        if(Array.isArray(obj)){
+            var requested_obj = obj.find((el)=>{return el.name === name; });
+            if(requested_obj) return requested_obj.value.toString();
+            else return "Not Found";
+        }
         else return "Not Found";
     }
 

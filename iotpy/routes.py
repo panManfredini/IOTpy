@@ -11,12 +11,12 @@ class NodeValues(Resource):
     isLeaf = False
     def render_GET(self, request):
         request.responseHeaders.addRawHeader(b"Content-Type", b"application/json")
-        overall_dict_of_values = dict()
+        overall_list_of_summary = []
         for x in listOfDevices:
-            dev_dict = x.getAllVariablesValues()
-            if bool(dev_dict):
-                overall_dict_of_values = {**overall_dict_of_values, **dev_dict}
-        return json.dumps(overall_dict_of_values).encode("utf8")
+            dev_list = x.getAllVariablesSummary()
+            if bool(dev_list):
+                overall_list_of_summary.extend(dev_list)
+        return json.dumps(overall_list_of_summary).encode("utf8")
 
 
 class WriteValue(Resource):

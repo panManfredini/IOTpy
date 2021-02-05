@@ -8,14 +8,34 @@ class PromVar:
     def __init__(self, name, description=""):
         self.name = name
         self.value = None
+        self.description = description
+        self.lastUpdate_ms = int(time.time() * 1000) 
+        self.status = 0
+        self.error = ""
         self.prom = Gauge(name, description)
 
     def setValue(self, value):
         self.value = value
         self.prom.set(value)
+        self.status = 1
+        self.lastUpdate_ms = int(time.time() * 1000)
 
+    def setStatus(self, status, error=""):
+        self.status = status
+        self.error = error
+    
     def getValue(self):
         return self.value
+    
+    def getVariableSummary(self):
+        summary = dict()
+        summary["name"] = self.name
+        summary["value"] = self.getValue()
+        summary["description"] = self.description
+        summary["lastUpdate_ms"] = self.lastUpdate_ms
+        summary["status"] = self.status
+        summary["error"] = self.error
+        return summary
 
 
 class Device(abc.ABC):
@@ -38,11 +58,11 @@ class Device(abc.ABC):
         else:
             return None
 
-    def getAllVariablesValues(self):
-        var_dict = dict()
+    def getAllVariablesSummary(self):
+        var_list = []
         for key, value in self.variables.items():
-            var_dict[key] = value.getValue()
-        return var_dict
+            var_list.append( value.getVariableSummary() )
+        return var_list
 
     def setVariableValue(self, name, value):
         if self.variables.get(name) is not None:
