@@ -54,8 +54,11 @@ four methods:
 from iotpy.Device import Device, addDevice
 
 class myDevice(Device):
-
-    def init(self):
+    
+    def __init__(self,name):
+        # You need to call constructor of Device
+        Device.__init__(self,name)
+        
         # here initialize your device connection...
 
         # adding a variables to the system

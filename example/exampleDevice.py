@@ -3,7 +3,10 @@ from random import Random
 
 class testDevice(Device):
 
-    def init(self):
+    def __init__(self,name):
+        # You need to call constructor of Device
+        Device.__init__(self,name)
+
         self.rand = Random()
         # adding a variables to the system
         self.addVariable("test0", "test variable")
