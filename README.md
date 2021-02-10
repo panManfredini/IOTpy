@@ -133,6 +133,15 @@ The server has a few defined URL routes:
 ]
 ```
 
+# Enviroment Variables
+
+| Env | Notes |  
+|--------|-------|
+|IOTPY_DEVICES_DIR| directory where devices are stored|
+|IOTPY_DEVICES_PORT| port number for the server|
+|IOTPY_PROXY_PREFIX| prefix to attach to all routes in case running behind a proxy|
+
+
 # Docker 
 
 ```bash

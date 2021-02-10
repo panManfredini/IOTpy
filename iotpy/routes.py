@@ -5,7 +5,7 @@ from threading import Thread
 import time
 import json
 from .shutdown import GracefullShutdown
-
+import os
 
 class NodeValues(Resource):
     isLeaf = False
@@ -93,11 +93,15 @@ class ShutDown(Resource):
 
     def render_GET(self, request):
         GracefullShutdown(None,None)
-        return b"""
+        prefix =  os.getenv('IOTPY_PROXY_PREFIX') or ""
+        prefix = prefix + "/"
+
+        return_str = """
         <h1>Shutting down... </h1> <p>Restart will only happen if you configure it as deamon.</p>
         <script>
-            setTimeout(()=>{ window.location.pathname = '/'; }, 3000);
+            setTimeout(()=>{ window.location.pathname = '""" + prefix +  """' ; }, 3000);
         </script>
         """
+        return return_str.encode()
 
 

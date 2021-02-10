@@ -28,8 +28,14 @@ def build_application():
     root.putChild(b"main.js",  File( dir_path + "/html/main.js" ) )
     root.putChild(b"main.css", File( dir_path + "/html/main.css" ))
 
+    prefix = os.getenv('IOTPY_PROXY_PREFIX') or None
+    root_prefixed = root
+    if prefix != None:
+        root_prefixed = Resource()
+        root_prefixed.putChild(prefix.encode(), root)
+
     modules_dir, PORT = getDirAndPort()
-    site = svr.Site(root)
+    site = svr.Site(root_prefixed)
     server = internet.TCPServer(PORT, site)
     application = service.Application('IoTpy')
     server.setServiceParent(application)

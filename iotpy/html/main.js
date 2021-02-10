@@ -28,7 +28,7 @@
     }
 
     async function readVariablesAndFilterByName(){
-        let resp = await fetch("/variables");
+        let resp = await fetch("variables");
         
         if( resp.status === 404 ) setValue("Var Not Found", true);
         else if(resp.status !== 200) setValue("Bad Request", true);
@@ -72,7 +72,7 @@
             value : parseFloat(varSetValue.value)
         }
 
-        let resp = await fetch("/write",{
+        let resp = await fetch("write",{
             method:"POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
