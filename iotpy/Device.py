@@ -18,6 +18,7 @@ class PromVar:
         self.value = value
         self.prom.set(value)
         self.status = 1
+        self.error = ""
         self.lastUpdate_ms = int(time.time() * 1000)
 
     def setStatus(self, status, error=""):
