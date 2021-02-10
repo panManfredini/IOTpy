@@ -76,6 +76,9 @@ class myDevice(Device):
         self.setVariableValue("test0", Value0)
         self.setVariableValue("test1", Value1)
 
+        # if variable fails
+        # self.setStatus(2, "TCP-REQUEST-FAIL")
+
     def write(self, name, val):
         # here execute write request on your device
         
@@ -130,6 +133,15 @@ The server has a few defined URL routes:
 ]
 ```
 
+# Docker 
+
+```bash
+# build example 
+docker build -f Docker -t <tag_name> .
+
+# run example
+docker run --rm --network host -e IOTPY_DEVICES_DIR=/iot/Devices -v <devices_path>:/iot openscada/iotpy:v0.3.1
+```
 
 # Run IOTpy as a service (on linux)
 

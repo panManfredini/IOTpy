@@ -11,6 +11,7 @@ class testDevice(Device):
         # adding a variables to the system
         self.addVariable("test0", "test variable")
         self.addVariable("test1")
+        self.addVariable("alwais_fail")
 
         # call loop every 2 sec
         self.poll_loop_ms = 2000
@@ -23,7 +24,9 @@ class testDevice(Device):
         # and save variables values
         self.setVariableValue("test0", self.rand.random())
         self.setVariableValue("test1", self.rand.random())
-
+        # status 0 and 1 are reserved, you can use status > 2
+        self.setVariableStatus("alwais_fail", 2,"UKNOWN FAILURE")
+        
     def write(self, name, val):
         # here execute write request
         # and set variable value
